@@ -1,0 +1,10 @@
+.venv/
+.tools/
+.setup-cache/
+.testtmp/
+data/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]

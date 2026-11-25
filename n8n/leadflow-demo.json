@@ -1,0 +1,58 @@
+{
+  "name": "LeadFlow — Daily lead research demo",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4fa5dfd4-1b3a-48ce-9f48-779161e257c1",
+      "name": "Run manually",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [240, 260]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "dc8a9604-27df-420c-82b3-60e66de29256",
+      "name": "Every day at 9 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 440]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Credential-free demo output. Replace this node with your lead source, website research,\n// AI scoring/draft generation, and Google Sheets or CRM steps for a live workflow.\nconst target = 'Dental clinics in Texas';\nconst leads = [\n  { company: 'Lone Star Dental Care', location: 'Austin, TX', website: 'https://lonestardental.com', fit: 'Good fit', score: 94, research: 'Family dentistry focused on comfortable visits for busy families.', draft: 'Hi Lone Star team — I noticed your focus on comfortable family visits. We help independent practices follow up on new patient inquiries. Would a short overview be useful?', approval_status: 'Needs review' },\n  { company: 'Bright Oak Dentistry', location: 'Dallas, TX', website: 'https://brightoakdental.com', fit: 'Good fit', score: 91, research: 'General dentistry with online booking and a clear new-patient offer.', draft: 'Hi Bright Oak team — online booking is a thoughtful touch for new patients. We help practices turn more local interest into booked visits. Open to a quick look?', approval_status: 'Needs review' },\n  { company: 'Cedar Park Family Dental', location: 'Cedar Park, TX', website: 'https://cedarparkfamilydental.com', fit: 'Maybe', score: 73, research: 'Broad family dentistry service menu; growth priorities need confirmation.', draft: 'Hi Cedar Park team — we help clinics keep new-patient follow-up organized so fewer inquiries go cold. Is improving that process on your radar?', approval_status: 'Needs review' }\n];\nreturn leads.map(lead => ({ json: { target, researched_at: new Date().toISOString(), ...lead } }));"
+      },
+      "id": "45959716-99fb-4fc5-aafd-8d6c2ee8dacf",
+      "name": "Demo prospect records",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [520, 350]
+    }
+  ],
+  "connections": {
+    "Run manually": {
+      "main": [[{"node": "Demo prospect records", "type": "main", "index": 0}]]
+    },
+    "Every day at 9 AM": {
+      "main": [[{"node": "Demo prospect records", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Chicago"
+  },
+  "versionId": "a6358502-53dd-4e06-864c-d2a8bf00a410",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
