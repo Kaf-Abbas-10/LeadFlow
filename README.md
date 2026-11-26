@@ -14,6 +14,18 @@ uv sync
 
 Open <http://127.0.0.1:8000/>. Python dependencies are pinned in `uv.lock`.
 
+## Web app (Next.js)
+
+A redesigned dashboard lives in `web/` (Next.js 16, React 19, Tailwind 4) and uses the same FastAPI backend.
+
+```bash
+.venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8300   # API
+cd web && npm install && npm run dev -- --port 3300
+```
+
+Open **http://localhost:3300**. `/api/*` is proxied to `LEADFLOW_API_URL` (default `http://127.0.0.1:8300`).
+Optional demo data: `python scripts/seed_demo.py` adds invented leads (ids start with `demo-`); `--reset` removes them.
+
 ## Providers
 
 The backend loads `.env` from the project root. Copy `.env.example` to `.env`; never commit `.env` or put keys in the browser code.
